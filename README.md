@@ -47,14 +47,14 @@ models/
         pytorch_model.bin
 ```
 
-Next, get the ORCHID and News dataset from this Google Drive link: https://drive.google.com/drive/folders/1dD_uUX6de7cMohBVr52GUWqQylBH_dZM?usp=sharing. Put `negative_trans_news.pickle` and `positive_trans_news.pickle` into `data/version2` directory.
+Next, get the ORCHID and News dataset from this Google Drive link: https://drive.google.com/drive/folders/1OCxF7UwGifcwagUgv3uxf2rdRvI_I1rI?usp=sharing Put `negative_trans_news.pickle` and `positive_trans_news.pickle` into `data/version2` directory.
 
 ## Train the model
 Inside the container at `<container_path>` from earlier, run
 ```
 python train.py --config_path=config/TranSentCutVersion2.yaml
 ```
-The result will be written to `tmp/experiment_results.txt`. Model will be saved to `models/version2`. The training parameters in `config/TranSentCutVersion2.yaml` is the best configurations we found. It should give best f1-score (macro) of 0.9296. Space-correct should be 0.9643.
+The result will be written to `tmp/experiment_results.txt`. Model will be saved to `models/version2`. The training parameters in `config/TranSentCutVersion2.yaml` is the best configurations we found. It should give best f1-score (macro) of 0.0.9265. Space-correct should be 0.9626.
 
 # Evaluate the model
 
@@ -62,9 +62,9 @@ Once the model finished training, it can be evaluated on new data using
 ```
 python eval.py --model_path=models/version2 --tokenizer_path=models/tokenizer --eval_data_path=<eval_path> --context_length=256
 ```
-where `<eval_path>` is the path to the evaluation data (.txt). On out-of-domain data that is not similar to ORCHID, we got f1-score of 0.6903. Unfortunately we cannot release the evaluation data due to legal concerns. However it is relatively easy to construct your own evaluation data. To do so, create a text file, with one sentence per line and a blank line between paragraphs. Be sure to have two blank lines at the end of the file so that the last paragraph in the file is included in the evaluation.
+where `<eval_path>` is the path to the evaluation data (.txt). 
 
-The trained model is also available at https://drive.google.com/drive/folders/1y6ZSnh7N-BjT2stit917RMYnjwuSiJv7?usp=sharing if you just want to evaluate it. Replace `models/version2` in the above command with the path that you saved the model. Please get the tokenizer from https://huggingface.co/airesearch/wangchanberta-base-att-spm-uncased/tree/main. Then rename the tokenizer files and setup the working directory according to the instruction in the training section.
+The trained model is also available at https://drive.google.com/drive/folders/1G29LeCn4KiW5ZJZTLn-zNaNenTgIPCSu?usp=sharing if you just want to evaluate it. Replace `models/version2` in the above command with the path that you saved the model. Please get the tokenizer from https://huggingface.co/airesearch/wangchanberta-base-att-spm-uncased/tree/main. Then rename the tokenizer files and setup the working directory according to the instruction in the training section.
 
 # Inference the model
 
@@ -73,9 +73,6 @@ Once the model finished training, it can be infered on new data using
 python infer.py --model_path=models/version2 --tokenizer_path=models/tokenizer --infer_data_path=<data_infer_path> --context_length=256
 ```
 where `<data_infer_path>` is the path to the inference data (.txt). The result will be saved to `infer_result/result_<data_infer_filename>.txt` 
-
-# Docker images
-We provide docker image for inference, please see `sumethy/tran_sent_cut` on Docker Hub.
 
 # Reference 
 (abstract only) TranSentCut − Transformer Based Thai Sentence Segmentation https://www.researchgate.net/publication/353996818_TranSentCut_-_Transformer_Based_Thai_Sentence_Segmentation. The full paper is under review.
