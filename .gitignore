@@ -1,7 +1,4 @@
 __pycache__/
 checkpoints/
-data/
 logs/
 models/
-tmp/
-infer_result/
