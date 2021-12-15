@@ -13,26 +13,6 @@ After cloning the repo, *cd* into it and create the following directories:
 * tmp
 * infer_result
 
-## Setup the environment
-For perfect repeatablity with our results, we recommend using Nvidia Pytorch docker image. We used version 20.12 (https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_20-12.html#rel_20-12).
-
-Pull the image
-```
-docker pull nvcr.io/nvidia/pytorch:20.12-py3
-```
-
-Start the container
-```
-docker run --gpus all -it --ipc=host --name <name> -v <host_path>:/<container_path> -p 6006:6006 nvcr.io/nvidia/pytorch:20.12-py3
-```
-where `<host_path>` is the path where you cloned this repo and `<container_path>` is any path inside the container you choose.
-
-Next, setup the environment inside the container. Get inside the container, *cd* to `<container_path>` and run
-```
-./install_requirements.sh
-```
-if the file is not executable, run *chmod +x install_requirements.sh* first.
-
 ## Get the training data, pretrained model and tokenizer
 Go to https://huggingface.co/airesearch/wangchanberta-base-att-spm-uncased/tree/main. Download `config.json` and `pytorch_model.bin` and put them in `models/wangchanberta-base-att-spm-uncased`. Then download `tokenizer_config.json`, `sentencepiece.bpe.model` and `sentencepiece.bpe.vocab` and put them in `models/tokenizer`. Rename `tokenizer_config.json` to `config.json`. The `models` directory now should look like this
 
@@ -46,8 +26,6 @@ models/
         config.json
         pytorch_model.bin
 ```
-
-Next, get the ORCHID and News dataset from this Google Drive link: https://drive.google.com/drive/folders/1OCxF7UwGifcwagUgv3uxf2rdRvI_I1rI?usp=sharing Put `negative_trans_news.pickle` and `positive_trans_news.pickle` into `data/version2` directory.
 
 ## Train the model
 Inside the container at `<container_path>` from earlier, run
@@ -76,3 +54,7 @@ where `<data_infer_path>` is the path to the inference data (.txt). The result w
 
 # Reference 
 (abstract only) TranSentCut − Transformer Based Thai Sentence Segmentation https://www.researchgate.net/publication/353996818_TranSentCut_-_Transformer_Based_Thai_Sentence_Segmentation. The full paper is under review.
+# Team 
+* Nartawat Phong-arom 6113059
+* Jirawit Sopa 6113224
+* Parichaya Thanawuthikrai 6113295
